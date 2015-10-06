@@ -1,0 +1,51 @@
+@startuml
+actor attacker
+control attackService
+actor defender
+control throwService1
+control throwService2
+entity TerritoryAttacker
+entity TerritoryDefender
+
+attacker -> attackService : doAttack()
+attackService -> attacker : chooseFromTerritory()
+activate attacker
+attacker -> attackService : territory
+deactivate attacker
+attackService -> attackService : hasTerritory2Armies?()
+attackService -> attacker : chooseTerritoryToAttack()
+activate attacker
+attacker -> attackService : territory
+deactivate attacker
+attackService -> attackService : isTerritoryNeigbor?()
+
+TerritoryAttacker -> attackService : getNumberOfPlacedArmies()
+TerritoryDefender -> attackService : getNumberOfPlacedArmies()
+
+attackService -> attacker : chooseNrOfArmies()
+activate attacker
+attackService -> defender : chooseNrOfArmies()
+activate defender
+
+attacker --> attackService : nrOfAttackArmies
+deactivate attacker
+defender --> attackService : nrOfDefendArmies
+deactivate defender
+
+attackService -> throwService1 : do(nrOfAttackArmies)
+activate throwService1
+attackService -> throwService2 : do(nrOfDefendArmies)
+activate throwService2
+throwService1 --> attackService : resultsOfDices
+deactivate throwService1
+throwService2 --> attackService : resultsOfDices
+deactivate throwService2
+
+attackService -> attackService : CalculateScores()
+
+attackService -> TerritoryAttacker : updateArmies()
+attackService -> TerritoryDefender : updateArmies()
+
+
+
+@enduml

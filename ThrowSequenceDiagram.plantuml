@@ -1,0 +1,26 @@
+@startuml
+Actor person
+control throwService
+entity dice1
+entity dice2
+entity dice3
+person -> throwService : do(amountOfDices)
+activate throwService
+throwService -> dice1 : doThrow()
+activate dice1
+throwService -> dice2 : doThrow()
+activate dice2
+throwService -> dice3 : doThrow()
+activate dice3
+
+dice1 --> throwService : result
+deactivate dice1
+dice2 --> throwService : result
+deactivate dice2
+dice3 --> throwService : result
+deactivate dice3
+
+throwService --> person : result{dice1, dice2, dice3}
+deactivate throwService
+
+@enduml

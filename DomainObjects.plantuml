@@ -1,0 +1,19 @@
+@startuml
+Game *-- Player
+Player *-- "Fixed" Army
+Player o-- YCMCcards
+Game *-- YCMCcards
+Game *-- Map
+Map *-- "6" Continents
+Continents *-- Territory
+
+class Territory {
+  List Armies
+  int getNumberOfPlacedArmies()
+  void addArmies(nrOfArmies)
+  void removeArmies(nrOfArmies)
+}
+
+Territory o-- "1..*" Army
+Game *-- "5" Dice
+@enduml
